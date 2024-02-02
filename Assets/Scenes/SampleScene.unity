@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 902518866}
   m_Layer: 0
   m_Name: Platforms
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10782,8 +10782,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.65625, y: 0.8125}
+  m_Offset: {x: 0, y: -0.0795967}
+  m_Size: {x: 0.65625, y: 0.80586684}
   m_Direction: 0
 --- !u!114 &2022186456
 MonoBehaviour:
@@ -10797,4 +10797,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efb304d53d66ec54bbdcf403e24c12cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 1.5
+  playerSpeed: 12
+  walkSpeed: 12
+  runSpeed: 17
