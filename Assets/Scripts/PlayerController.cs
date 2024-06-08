@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -11,7 +12,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float walkSpeed = 15f;
     [SerializeField] private float runSpeed = 20f;
     float horizontalInput;
-    bool isRunning=false;
+    bool isRunning = false;
+    bool isGrounded = false;
+
+    int pepperAmount = 0;
 
     private Rigidbody2D playerRb;
     private SpriteRenderer spriteRenderer;
@@ -31,7 +35,8 @@ public class PlayerController : MonoBehaviour
     {
         playerSpeed = isRunning ? runSpeed : walkSpeed;
         
-        playerRb.AddForce(new Vector2(horizontalInput * playerSpeed, 0.0f), ForceMode2D.Impulse);
+        playerRb.velocity = new Vector2(horizontalInput * playerSpeed, playerRb.velocity.y);
+        animator.SetFloat("xVelocity", Math.Abs(playerRb.velocity.x));
     }
 
     // Update is called once per frame
@@ -39,11 +44,8 @@ public class PlayerController : MonoBehaviour
     {
         // Horizontal Movement
         horizontalInput = Input.GetAxis("Horizontal");
-        animator.SetFloat("HorizontalSpeed", Mathf.Abs(playerRb.velocity.x));
+        animator.SetFloat("HorizontalSpeed", Mathf.Abs(horizontalInput));
 
-        bool isMoving = false;
-        isMoving = (Mathf.Abs(horizontalInput) <= 0.2f) ? false : true; 
-        animator.SetBool("isMoving",isMoving);
 
         Debug.Log(playerRb.velocity.x);
 
@@ -63,13 +65,38 @@ public class PlayerController : MonoBehaviour
            isRunning = false;
         }
 
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            animator.SetBool("isJumping", true);
+            playerRb.AddForce(Vector2.up * 300f, ForceMode2D.Impulse);
+            isGrounded = false;
+            animator.SetBool("isGrounded", false);
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Platform"))
-            animator.SetBool("isGrounded",true);
-        else
+        {
+            isGrounded = true;
+            animator.SetBool("isGrounded", true);
+            animator.SetBool("isJumping", false);
+        }
+        
+        if(collision.gameObject.CompareTag("Collectible"))
+        {
+            Destroy(collision.gameObject);
+        }
+        
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            isGrounded = false;
             animator.SetBool("isGrounded", false);
+        }
     }
 }
