@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private GameObject fireball;
     [SerializeField] private Transform fireBallSpawnPos;
-    int bulletDirection = 1;
+    [SerializeField] private float fireballCooldown = 1f;
+    private float currentTime = 0f;
 
     [SerializeField] private float playerSpeed = 15f;
     [SerializeField] private float walkSpeed = 15f;
@@ -19,11 +20,14 @@ public class PlayerController : MonoBehaviour
     float horizontalInput;
     bool isRunning = false;
     bool isGrounded = false;
+    int lookDirection = 1;
+    short jumpCount = 0;
 
     int pepperAmount = 0;
+    [SerializeField] int maxPepperAmount = 10;
 
     private Rigidbody2D playerRb;
-    private SpriteRenderer spriteRenderer;
+    //private SpriteRenderer spriteRenderer;
     private Animator animator;
     private BoxCollider2D playerCollider;
 
@@ -32,7 +36,7 @@ public class PlayerController : MonoBehaviour
     {
         playerRb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        //spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
 
@@ -47,21 +51,24 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        currentTime += Time.deltaTime;
         // Horizontal Movement
         horizontalInput = Input.GetAxis("Horizontal");
-        animator.SetFloat("HorizontalSpeed", Mathf.Abs(horizontalInput));
+        //animator.SetFloat("xVelocity", Mathf.Abs(horizontalInput));
 
 
-        Debug.Log(playerRb.velocity.x);
+        //Debug.Log(playerRb.velocity.x);
 
         //Flip sprite based on the move direction
         if (horizontalInput < -0.01f)
         {
-            spriteRenderer.flipX = true;
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+            lookDirection = -1;
         }  
         else if (horizontalInput > 0.01f)
         {
-            spriteRenderer.flipX = false;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            lookDirection = 1;
         }
             
 
@@ -75,25 +82,40 @@ public class PlayerController : MonoBehaviour
            isRunning = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        // Jumping
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 2)
         {
             animator.SetBool("isJumping", true);
             playerRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isGrounded = false;
             animator.SetBool("isGrounded", false);
+            jumpCount++;
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            // Instantiate the fireball at the fireBallSpawnPos position with no parent
-            GameObject fireballInstance = Instantiate(fireball, fireBallSpawnPos.position, fireBallSpawnPos.rotation);
-            fireballInstance.transform.parent = null; // Ensure it's not parented to the player or the spawn position
-            FireBallThrow fireballScript = fireballInstance.GetComponent<FireBallThrow>();
 
-            // Set the fireball direction based on the player's facing direction
-            fireballScript.direction = spriteRenderer.flipX ? -1 : 1;
+        // Throwing Fireballs
+        if (Input.GetKeyDown(KeyCode.E) && currentTime >= fireballCooldown)
+        {
+            if (pepperAmount > 0)
+            {
+                ThrowFireball();
+                currentTime = 0f;
+                pepperAmount--;
+            }
         }
     }
+
+    private void ThrowFireball()
+    {
+        // Instantiate the fireball at the fireBallSpawnPos position with no parent
+        GameObject fireballInstance = Instantiate(fireball, fireBallSpawnPos.position, fireBallSpawnPos.rotation);
+        fireballInstance.transform.parent = null; // Ensure it's not parented to the player or the spawn position
+        FireBallThrow fireballScript = fireballInstance.GetComponent<FireBallThrow>();
+
+        // Set the fireball direction based on the player's facing direction
+        fireballScript.direction = lookDirection;
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -102,6 +124,7 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
             animator.SetBool("isGrounded", true);
             animator.SetBool("isJumping", false);
+            jumpCount = 0;
         }
     }
 
@@ -109,6 +132,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Collectible"))
         {
+            pepperAmount++;
             Destroy(collision.gameObject);
         }
     }

@@ -15,4 +15,9 @@ public class FireBallThrow : MonoBehaviour
         fireballRb = GetComponent<Rigidbody2D>();
         fireballRb.velocity = new Vector2(speed * direction, 0f);
     }
+
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
 }
