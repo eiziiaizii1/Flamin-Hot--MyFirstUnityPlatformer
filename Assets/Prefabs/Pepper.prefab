@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3329770660562529054}
   - component: {fileID: 3551790064114481895}
   - component: {fileID: 3323555819445053660}
-  - component: {fileID: 354748349879016919}
+  - component: {fileID: 7062402616805862467}
   m_Layer: 0
   m_Name: Pepper
   m_TagString: Collectible
@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3551790064114481895
 SpriteRenderer:
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!95 &354748349879016919
+--- !u!95 &7062402616805862467
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -144,7 +144,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 38f765560193f894abeddef5572efc30, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 

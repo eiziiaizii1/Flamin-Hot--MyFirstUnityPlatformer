@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform fireBallSpawnPos;
     [SerializeField] private float fireballCooldown = 1f;
     private float currentTime = 0f;
+    public bool isFired = false;
 
     [SerializeField] private float playerSpeed = 15f;
     [SerializeField] private float walkSpeed = 15f;
@@ -23,8 +24,12 @@ public class PlayerController : MonoBehaviour
     int lookDirection = 1;
     short jumpCount = 0;
 
-    int pepperAmount = 0;
-    [SerializeField] int maxPepperAmount = 10;
+    public int pepperAmount = 0;
+    public int maxPepperAmount = 5;
+    public float extraPepperDamage = 2f;
+
+    public float maxHealth= 0f;
+    public float currentHealth = 0f;
 
     private Rigidbody2D playerRb;
     //private SpriteRenderer spriteRenderer;
@@ -94,10 +99,12 @@ public class PlayerController : MonoBehaviour
 
 
         // Throwing Fireballs
+        isFired = false;
         if (Input.GetKeyDown(KeyCode.E) && currentTime >= fireballCooldown)
         {
             if (pepperAmount > 0)
             {
+                isFired = true;
                 ThrowFireball();
                 currentTime = 0f;
                 pepperAmount--;
@@ -114,6 +121,18 @@ public class PlayerController : MonoBehaviour
 
         // Set the fireball direction based on the player's facing direction
         fireballScript.direction = lookDirection;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+    }
+
+    public void Heal(float healAmount)
+    {
+        currentHealth += healAmount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
     }
 
 
@@ -134,6 +153,11 @@ public class PlayerController : MonoBehaviour
         {
             pepperAmount++;
             Destroy(collision.gameObject);
+            if (pepperAmount > maxPepperAmount)
+            {
+                TakeDamage(extraPepperDamage);
+                pepperAmount = maxPepperAmount;
+            }
         }
     }
 
