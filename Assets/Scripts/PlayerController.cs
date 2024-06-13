@@ -97,7 +97,6 @@ public class PlayerController : MonoBehaviour
             jumpCount++;
         }
 
-
         // Throwing Fireballs
         isFired = false;
         if (Input.GetKeyDown(KeyCode.E) && currentTime >= fireballCooldown)
@@ -105,6 +104,7 @@ public class PlayerController : MonoBehaviour
             if (pepperAmount > 0)
             {
                 isFired = true;
+                animator.SetTrigger("isFired");
                 ThrowFireball();
                 currentTime = 0f;
                 pepperAmount--;
