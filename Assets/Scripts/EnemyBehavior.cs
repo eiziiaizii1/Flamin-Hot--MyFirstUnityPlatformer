@@ -19,6 +19,10 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] float spawnDelay = 1.0f;
     float currentTime = 0f;
 
+
+    [SerializeField] float knockbackPower = 10f;
+    [SerializeField] float knockbackDuration = 0.2f;
+
     public float health = 10f;
     public float damage = 2f;
 
@@ -69,12 +73,32 @@ public class EnemyBehavior : MonoBehaviour
 
     protected void faceToPlayer()
     {
+        if (playerPos == null) return;
+
         if (playerPos.position.x < transform.position.x)
         {
             transform.rotation = Quaternion.Euler(0,180,0);
         }else
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerController playerScript = collision.gameObject.GetComponent<PlayerController>();
+
+            if (playerScript != null) {
+                Vector2 knockbackDirection = (collision.transform.position - transform.position).normalized;
+                Vector2 knockbackForce = knockbackDirection * knockbackPower;
+                playerScript.TakeDamage(damage);
+
+                playerScript.ApplyKnocback(knockbackForce,knockbackDuration);
+                //Debug.Log($"Knockback direction: {knockbackDirection}, Knockback force: {knockbackDirection * knockbackPower}");
+            }
+
         }
     }
 }

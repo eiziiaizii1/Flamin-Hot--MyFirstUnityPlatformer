@@ -13200,6 +13200,7 @@ MonoBehaviour:
   extraPepperDamage: 2
   maxHealth: 20
   currentHealth: 20
+  isKnockbacked: 0
 --- !u!61 &2022186457
 BoxCollider2D:
   m_ObjectHideFlags: 0

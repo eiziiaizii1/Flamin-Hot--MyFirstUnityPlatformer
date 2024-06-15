@@ -33,6 +33,9 @@ public class SnowballThrow : MonoBehaviour
         {
             collision.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
         }
-        Destroy(gameObject);
+        if (!collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

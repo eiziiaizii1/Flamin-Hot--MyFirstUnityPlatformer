@@ -32,37 +32,41 @@ public class PlayerController : MonoBehaviour
     public float currentHealth = 0f;
 
     private Rigidbody2D playerRb;
-    //private SpriteRenderer spriteRenderer;
     private Animator animator;
     private BoxCollider2D playerCollider;
+
+
+    private bool isKnockbacked = false;
+    private float knockbackEndTime = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
-        //spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
     {
-        playerSpeed = isRunning ? runSpeed : walkSpeed;
-        
-        playerRb.velocity = new Vector2(horizontalInput * playerSpeed, playerRb.velocity.y);
-        animator.SetFloat("xVelocity", Math.Abs(playerRb.velocity.x));
+        if (!isKnockbacked)
+        {
+            playerSpeed = isRunning ? runSpeed : walkSpeed;
+            playerRb.velocity = new Vector2(horizontalInput * playerSpeed, playerRb.velocity.y);
+            animator.SetFloat("xVelocity", Math.Abs(playerRb.velocity.x));
+        }
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         currentTime += Time.deltaTime;
         // Horizontal Movement
-        horizontalInput = Input.GetAxis("Horizontal");
-        //animator.SetFloat("xVelocity", Mathf.Abs(horizontalInput));
-
-
-        //Debug.Log(playerRb.velocity.x);
+        if (!isKnockbacked)
+        {
+            horizontalInput = Input.GetAxis("Horizontal");
+        }
+        
 
         //Flip sprite based on the move direction
         if (horizontalInput < -0.01f)
@@ -110,6 +114,21 @@ public class PlayerController : MonoBehaviour
                 pepperAmount--;
             }
         }
+    }
+
+
+    public void ApplyKnocback(Vector2 knockbackForce, float duration)
+    {
+        isKnockbacked = true;
+        playerRb.AddForce(knockbackForce, ForceMode2D.Impulse);
+        knockbackEndTime = Time.time + duration;
+        StartCoroutine(KnockbackCoroutine(duration));
+    }
+
+    private IEnumerator KnockbackCoroutine(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        isKnockbacked = false;
     }
 
     private void ThrowFireball()
