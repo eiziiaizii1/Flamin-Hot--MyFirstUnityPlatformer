@@ -5,6 +5,14 @@ using UnityEngine;
 public class EnemyBehavior : MonoBehaviour
 {
     Animator animator;
+
+
+    public GameObject snowball;
+    public Transform playerPos;
+    public Transform throwPos;
+
+
+
     [SerializeField] float minTimeAmount = 1.0f;
     [SerializeField] float maxTimeAmount = 10.0f;
     [SerializeField] float spawnDelay = 1.0f;
@@ -17,7 +25,8 @@ public class EnemyBehavior : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        
+        playerPos = GameObject.FindGameObjectWithTag("Player").transform;
+
         float spawnInterval = Random.Range(minTimeAmount, maxTimeAmount);
         Debug.Log(spawnInterval);
         InvokeRepeating("throwSnowBall", spawnDelay, spawnInterval);
@@ -41,6 +50,13 @@ public class EnemyBehavior : MonoBehaviour
 
     protected void throwSnowBall()
     {
+        if (playerPos == null)
+            return;
+
+        Vector2 throwDirection = (playerPos.position - throwPos.position).normalized;
+        GameObject projectile = Instantiate(snowball, throwPos.position, Quaternion.identity);
+        projectile.GetComponent<SnowballThrow>().setDirection(throwDirection);
+
         animator.SetTrigger("isAttacked");
     }
 }
