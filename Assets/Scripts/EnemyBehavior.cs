@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
@@ -11,7 +12,7 @@ public class EnemyBehavior : MonoBehaviour
     public Transform playerPos;
     public Transform throwPos;
 
-
+    [SerializeField] float throwRange = 10f;
 
     [SerializeField] float minTimeAmount = 1.0f;
     [SerializeField] float maxTimeAmount = 10.0f;
@@ -40,6 +41,8 @@ public class EnemyBehavior : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        faceToPlayer();
     }
 
     public void TakeDamage(float damage)
@@ -53,10 +56,25 @@ public class EnemyBehavior : MonoBehaviour
         if (playerPos == null)
             return;
 
-        Vector2 throwDirection = (playerPos.position - throwPos.position).normalized;
-        GameObject projectile = Instantiate(snowball, throwPos.position, Quaternion.identity);
-        projectile.GetComponent<SnowballThrow>().setDirection(throwDirection);
+        float playerDistance = Vector2.Distance(playerPos.position, transform.position);
 
-        animator.SetTrigger("isAttacked");
+        if (playerDistance <= throwRange)
+        {
+            Vector2 throwDirection = (playerPos.position - throwPos.position).normalized;
+            GameObject projectile = Instantiate(snowball, throwPos.position, Quaternion.identity);
+            projectile.GetComponent<SnowballThrow>().setDirection(throwDirection);
+            animator.SetTrigger("isAttacked");
+        }
+    }
+
+    protected void faceToPlayer()
+    {
+        if (playerPos.position.x < transform.position.x)
+        {
+            transform.rotation = Quaternion.Euler(0,180,0);
+        }else
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 }
