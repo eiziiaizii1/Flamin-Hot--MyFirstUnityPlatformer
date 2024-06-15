@@ -145,6 +145,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        animator.SetTrigger("isDamaged");
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
     }
 
