@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-           isRunning = false;
+            isRunning = false;
         }
 
         // Jumping
@@ -122,6 +122,26 @@ public class PlayerController : MonoBehaviour
                 currentTime = 0f;
                 pepperAmount--;
             }
+        }
+
+        if (isGrounded)
+        {
+            if (isRunning)
+            {
+                SoundManager.instance.PlayRunningSound();
+            }
+            else if(horizontalInput != 0f)
+            {
+                SoundManager.instance.PlayWalkingSound();
+            }
+            else
+            {
+                SoundManager.instance.StopMovementSound();
+            }
+        }
+        else
+        {
+            SoundManager.instance.StopMovementSound();
         }
     }
 
@@ -196,6 +216,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Platform"))
         {
             isGrounded = false;
+            SoundManager.instance.StopMovementSound();
             animator.SetBool("isGrounded", false);
         }
     }

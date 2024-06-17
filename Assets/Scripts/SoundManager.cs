@@ -7,17 +7,18 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
 
-    [SerializeField] public AudioSource 
+    [SerializeField] public AudioSource
         PlayerEffect_Source,
         EnemyEffect_Source,
         EnvironmentEffect_Source,
-        Music_Source;
+        Music_Source,
+        RunWalk_Source;
 
     [SerializeField] AudioClip fireballThrow;
     [SerializeField] AudioClip fireballImpact;
     [SerializeField] AudioClip jump;
-    [SerializeField] AudioClip playerHurt;  
-    [SerializeField] AudioClip playerWalk;  
+    [SerializeField] AudioClip playerHurt;
+    [SerializeField] AudioClip playerWalk;
     [SerializeField] AudioClip playerRun;   //
 
     [SerializeField] AudioClip snowballThrow;
@@ -25,16 +26,16 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip enemyDeath;  //
 
 
-    public AudioClip FireballThrow  { get => fireballThrow; set => fireballThrow = value; } 
+    public AudioClip FireballThrow { get => fireballThrow; set => fireballThrow = value; }
     public AudioClip FireballImpact { get => fireballImpact; set => fireballImpact = value; }
-    public AudioClip Jump           { get => jump; set => jump = value; }
-    public AudioClip PlayerHurt     { get => playerHurt; set => playerHurt = value; }
-    public AudioClip PlayerWalk     { get => playerWalk; set => playerWalk = value; }
-    public AudioClip PlayerRun      { get => playerRun; set => playerRun = value; }
+    public AudioClip Jump { get => jump; set => jump = value; }
+    public AudioClip PlayerHurt { get => playerHurt; set => playerHurt = value; }
+    public AudioClip PlayerWalk { get => playerWalk; set => playerWalk = value; }
+    public AudioClip PlayerRun { get => playerRun; set => playerRun = value; }
 
-    public AudioClip SnowballThrow  { get => snowballThrow; set => snowballThrow = value; }
+    public AudioClip SnowballThrow { get => snowballThrow; set => snowballThrow = value; }
     public AudioClip SnowballImpact { get => snowballImpact; set => snowballImpact = value; }
-    public AudioClip EnemyDeath     { get => enemyDeath; set => enemyDeath = value; }
+    public AudioClip EnemyDeath { get => enemyDeath; set => enemyDeath = value; }
 
 
     private void Awake()
@@ -50,37 +51,36 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void PlayWalkingSound()
     {
-        
+        if (!RunWalk_Source.isPlaying || RunWalk_Source.clip != playerWalk)
+        {
+            RunWalk_Source.clip = playerWalk;
+            RunWalk_Source.volume = 0.1f;
+            RunWalk_Source.loop = true;
+            RunWalk_Source.Play();
+        }
     }
 
-    public void PlayPlayerEffect(AudioClip clipToPlay, float effectVolume)
+    public void PlayRunningSound()
     {
-        PlayerEffect_Source.PlayOneShot(clipToPlay);
-        
-        PlayerEffect_Source.volume = effectVolume;
-        
-        PlayerEffect_Source.PlayOneShot(clipToPlay);
+        if (!RunWalk_Source.isPlaying || RunWalk_Source.clip != playerRun)
+        {
+            RunWalk_Source.clip = playerRun;
+            RunWalk_Source.volume = 0.1f;
+            RunWalk_Source.loop = true;
+            RunWalk_Source.Play();
+        }
     }
 
-    public void PlayEnemyEffect(AudioClip clipToPlay, float effectVolume)
+    public void StopMovementSound()
     {
-        EnemeyEffect_Source.PlayOneShot(clipToPlay);
-
-        EnemeyEffect_Source.volume = effectVolume;
-
-        EnemeyEffect_Source.PlayOneShot(clipToPlay);
+        if (RunWalk_Source.isPlaying)
+        {
+            RunWalk_Source.Stop();
+        }
     }
 
-    public void PlayEnvironmentEffect(AudioClip clipToPlay, float effectVolume)
-    {
-        EnvironmentEffect_Source.PlayOneShot(clipToPlay);
-
-        EnvironmentEffect_Source.volume = effectVolume;
-
-        EnvironmentEffect_Source.PlayOneShot(clipToPlay);
-    }
 
     // Single Method approach
     // Runner: SoundManager.instance.PlayEffect(SoundManager.instance.PlayerEffect_Source, someClip, someVolume);

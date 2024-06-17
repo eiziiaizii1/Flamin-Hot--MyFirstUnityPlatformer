@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 140450843}
   - component: {fileID: 140450842}
   - component: {fileID: 140450841}
+  - component: {fileID: 140450847}
   m_Layer: 0
   m_Name: Sound Manager
   m_TagString: Untagged
@@ -185,11 +186,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: f4156bc2dbcd9f6468f081fe7c087c29, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -475,7 +476,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -572,15 +573,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerEffect_Source: {fileID: 140450844}
-  EnemeyEffect_Source: {fileID: 140450843}
+  EnemyEffect_Source: {fileID: 0}
   EnvironmentEffect_Source: {fileID: 140450842}
   Music_Source: {fileID: 140450841}
+  RunWalk_Source: {fileID: 140450847}
   fireballThrow: {fileID: 8300000, guid: 70fd694d6e9d7c24f856b7130f2feadb, type: 3}
   fireballImpact: {fileID: 8300000, guid: 97098034707c6234a837c4a4cc521152, type: 3}
   jump: {fileID: 8300000, guid: 6434b90b5d04ceb4599a3f473dee051d, type: 3}
   playerHurt: {fileID: 8300000, guid: 6b3addade19fce942ab80a57f23e223b, type: 3}
-  playerWalk: {fileID: 8300000, guid: 1d49f27ae30e4c048a503c8b557b5bb5, type: 3}
-  playerRun: {fileID: 8300000, guid: 4ac66301428c55940a438226f31ae708, type: 3}
+  playerWalk: {fileID: 8300000, guid: d455f0dce6287df4dbde2a19e51ed960, type: 3}
+  playerRun: {fileID: 8300000, guid: 3773427cc980a034d8863eb3cb7c098a, type: 3}
   snowballThrow: {fileID: 8300000, guid: c911ab74ab2c3ea4f8f41f3d335253c5, type: 3}
   snowballImpact: {fileID: 8300000, guid: 3bbac870cc5203e439d09f4e8ebc2380, type: 3}
   enemyDeath: {fileID: 0}
@@ -599,6 +601,102 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &140450847
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140450840}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.05
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 32
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &197984078
 GameObject:
   m_ObjectHideFlags: 0
@@ -13653,6 +13751,12 @@ MonoBehaviour:
   extraPepperDamage: 2
   maxHealth: 20
   currentHealth: 20
+  jumpVolumeLevel: 0.05
+  fireballVolumeLevel: 0.4
+  hurtVolumeLevel: 0.2
+  aVolumeLevel: 0.5
+  bVolumeLevel: 0.5
+  cVolumeLevel: 0.5
 --- !u!61 &2022186457
 BoxCollider2D:
   m_ObjectHideFlags: 0
