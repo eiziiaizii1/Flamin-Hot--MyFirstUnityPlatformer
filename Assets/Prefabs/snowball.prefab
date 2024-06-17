@@ -129,6 +129,7 @@ MonoBehaviour:
   speed: 10
   destroyTime: 5
   damage: 5
+  snowballImpactVolumeLevel: 0.2
 --- !u!58 &6673710901169526331
 CircleCollider2D:
   m_ObjectHideFlags: 0

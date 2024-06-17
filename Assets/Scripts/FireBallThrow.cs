@@ -12,6 +12,8 @@ public class FireBallThrow : MonoBehaviour
     public int direction = 1;
     private Rigidbody2D fireballRb;
 
+    [SerializeField] float impactVolume = .5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +37,7 @@ public class FireBallThrow : MonoBehaviour
             collision.gameObject.GetComponent<EnemyBehavior>().TakeDamage(damage);
         }
         Destroy(gameObject);
+        SoundManager.instance.PlayEffectSound(SoundManager.instance.EnvironmentEffect_Source, SoundManager.instance.FireballImpact, impactVolume);
     }
 
 

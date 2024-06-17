@@ -132,6 +132,7 @@ MonoBehaviour:
   knockbackDuration: 0.2
   health: 10
   damage: 2
+  snowballThrowVolume: 0.2
 --- !u!61 &5459035725593542823
 BoxCollider2D:
   m_ObjectHideFlags: 0

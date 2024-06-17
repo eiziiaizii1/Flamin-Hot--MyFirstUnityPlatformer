@@ -9,6 +9,8 @@ public class SnowballThrow : MonoBehaviour
     [SerializeField] float damage;
     private Vector2 direction;
 
+    [SerializeField] float snowballImpactVolumeLevel = .5f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +38,7 @@ public class SnowballThrow : MonoBehaviour
         if (!collision.gameObject.CompareTag("Enemy"))
         {
             Destroy(gameObject);
+            SoundManager.instance.PlayEffectSound(SoundManager.instance.EnemyEffect_Source, SoundManager.instance.SnowballImpact, snowballImpactVolumeLevel);
         }
     }
 }

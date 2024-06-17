@@ -575,12 +575,14 @@ MonoBehaviour:
   EnemeyEffect_Source: {fileID: 140450843}
   EnvironmentEffect_Source: {fileID: 140450842}
   Music_Source: {fileID: 140450841}
-  fireballThrow: {fileID: 0}
-  doubleJump: {fileID: 0}
-  playerHurt: {fileID: 0}
-  playerWalk: {fileID: 0}
-  playerRun: {fileID: 0}
-  snowballThrow: {fileID: 0}
+  fireballThrow: {fileID: 8300000, guid: 70fd694d6e9d7c24f856b7130f2feadb, type: 3}
+  fireballImpact: {fileID: 8300000, guid: 97098034707c6234a837c4a4cc521152, type: 3}
+  jump: {fileID: 8300000, guid: 6434b90b5d04ceb4599a3f473dee051d, type: 3}
+  playerHurt: {fileID: 8300000, guid: 6b3addade19fce942ab80a57f23e223b, type: 3}
+  playerWalk: {fileID: 8300000, guid: 1d49f27ae30e4c048a503c8b557b5bb5, type: 3}
+  playerRun: {fileID: 8300000, guid: 4ac66301428c55940a438226f31ae708, type: 3}
+  snowballThrow: {fileID: 8300000, guid: c911ab74ab2c3ea4f8f41f3d335253c5, type: 3}
+  snowballImpact: {fileID: 8300000, guid: 3bbac870cc5203e439d09f4e8ebc2380, type: 3}
   enemyDeath: {fileID: 0}
 --- !u!4 &140450846
 Transform:

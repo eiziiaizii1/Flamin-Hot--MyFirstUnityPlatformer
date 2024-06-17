@@ -7,17 +7,17 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
 
-    [SerializeField] private AudioSource 
+    [SerializeField] public AudioSource 
         PlayerEffect_Source,
-        EnemeyEffect_Source,
+        EnemyEffect_Source,
         EnvironmentEffect_Source,
         Music_Source;
 
     [SerializeField] AudioClip fireballThrow;
     [SerializeField] AudioClip fireballImpact;
     [SerializeField] AudioClip jump;
-    [SerializeField] AudioClip playerHurt;  //
-    [SerializeField] AudioClip playerWalk;  //
+    [SerializeField] AudioClip playerHurt;  
+    [SerializeField] AudioClip playerWalk;  
     [SerializeField] AudioClip playerRun;   //
 
     [SerializeField] AudioClip snowballThrow;

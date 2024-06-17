@@ -39,6 +39,13 @@ public class PlayerController : MonoBehaviour
     private bool isKnockbacked = false;
     private float knockbackEndTime = 0f;
 
+
+    [SerializeField] float jumpVolumeLevel = 0.5f;
+    [SerializeField] float fireballVolumeLevel = 0.5f;
+    [SerializeField] float hurtVolumeLevel = 0.5f;
+    [SerializeField] float aVolumeLevel = 0.5f;
+    [SerializeField] float bVolumeLevel = 0.5f;
+    [SerializeField] float cVolumeLevel = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -96,6 +103,7 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isJumping", true);
             playerRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            SoundManager.instance.PlayEffectSound(SoundManager.instance.PlayerEffect_Source, SoundManager.instance.Jump, jumpVolumeLevel);
             isGrounded = false;
             animator.SetBool("isGrounded", false);
             jumpCount++;
@@ -108,6 +116,7 @@ public class PlayerController : MonoBehaviour
             if (pepperAmount > 0)
             {
                 isFired = true;
+                SoundManager.instance.PlayEffectSound(SoundManager.instance.PlayerEffect_Source, SoundManager.instance.FireballThrow, fireballVolumeLevel);
                 animator.SetTrigger("isFired");
                 ThrowFireball();
                 currentTime = 0f;
@@ -147,6 +156,7 @@ public class PlayerController : MonoBehaviour
         currentHealth -= damage;
         animator.SetTrigger("isDamaged");
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        SoundManager.instance.PlayEffectSound(SoundManager.instance.PlayerEffect_Source, SoundManager.instance.PlayerHurt, hurtVolumeLevel);
     }
 
     public void Heal(float healAmount)

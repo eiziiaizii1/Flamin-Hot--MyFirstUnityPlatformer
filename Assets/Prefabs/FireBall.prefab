@@ -151,6 +151,7 @@ MonoBehaviour:
   speed: 10
   damage: 5
   direction: 1
+  impactVolume: 0.7
 --- !u!61 &-5608491477602060404
 BoxCollider2D:
   m_ObjectHideFlags: 0

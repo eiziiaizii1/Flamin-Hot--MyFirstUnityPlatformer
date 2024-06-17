@@ -26,6 +26,8 @@ public class EnemyBehavior : MonoBehaviour
     public float health = 10f;
     public float damage = 2f;
 
+    [SerializeField] float snowballThrowVolume = .5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +70,7 @@ public class EnemyBehavior : MonoBehaviour
             GameObject projectile = Instantiate(snowball, throwPos.position, Quaternion.identity);
             projectile.GetComponent<SnowballThrow>().setDirection(throwDirection);
             animator.SetTrigger("isAttacked");
+            SoundManager.instance.PlayEffectSound(SoundManager.instance.EnemyEffect_Source, SoundManager.instance.SnowballThrow, snowballThrowVolume);
         }
     }
 
