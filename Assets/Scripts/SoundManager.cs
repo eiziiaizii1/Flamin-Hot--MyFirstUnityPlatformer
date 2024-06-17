@@ -14,22 +14,26 @@ public class SoundManager : MonoBehaviour
         Music_Source;
 
     [SerializeField] AudioClip fireballThrow;
-    [SerializeField] AudioClip doubleJump;
-    [SerializeField] AudioClip playerHurt;
-    [SerializeField] AudioClip playerWalk;
-    [SerializeField] AudioClip playerRun;
+    [SerializeField] AudioClip fireballImpact;
+    [SerializeField] AudioClip jump;
+    [SerializeField] AudioClip playerHurt;  //
+    [SerializeField] AudioClip playerWalk;  //
+    [SerializeField] AudioClip playerRun;   //
 
     [SerializeField] AudioClip snowballThrow;
-    [SerializeField] AudioClip enemyDeath;
+    [SerializeField] AudioClip snowballImpact;
+    [SerializeField] AudioClip enemyDeath;  //
 
 
-    public AudioClip FireballThrow  { get => fireballThrow; set => fireballThrow = value; }
-    public AudioClip DoubleJump     { get => doubleJump; set => doubleJump = value; }
+    public AudioClip FireballThrow  { get => fireballThrow; set => fireballThrow = value; } 
+    public AudioClip FireballImpact { get => fireballImpact; set => fireballImpact = value; }
+    public AudioClip Jump           { get => jump; set => jump = value; }
     public AudioClip PlayerHurt     { get => playerHurt; set => playerHurt = value; }
     public AudioClip PlayerWalk     { get => playerWalk; set => playerWalk = value; }
     public AudioClip PlayerRun      { get => playerRun; set => playerRun = value; }
 
     public AudioClip SnowballThrow  { get => snowballThrow; set => snowballThrow = value; }
+    public AudioClip SnowballImpact { get => snowballImpact; set => snowballImpact = value; }
     public AudioClip EnemyDeath     { get => enemyDeath; set => enemyDeath = value; }
 
 
