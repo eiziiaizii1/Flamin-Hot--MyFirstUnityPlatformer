@@ -5,9 +5,25 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject player;
+    [SerializeField] GameObject peperParent;
     private PlayerController playerController;
 
+    public GameObject gameOverMenu;
 
+    private void OnEnable()
+    {
+        PlayerController.OnPlayerDeath += EnableGameOverMenu;
+    }
+
+    private void OnDisable()
+    {
+        PlayerController.OnPlayerDeath -= EnableGameOverMenu;
+    }
+
+    public void EnableGameOverMenu()
+    {
+        gameOverMenu.SetActive(true);
+    }
 
     private void Start()
     {
@@ -18,12 +34,12 @@ public class UIManager : MonoBehaviour
     {
         if (playerController.pepperAmount > 0 && playerController.pepperAmount <= playerController.maxPepperAmount)
         {
-            transform.GetChild(playerController.pepperAmount-1).gameObject.SetActive(true);
+            peperParent.transform.GetChild(playerController.pepperAmount-1).gameObject.SetActive(true);
         }
 
         if (playerController.isFired)
         {
-            transform.GetChild(playerController.pepperAmount).gameObject.SetActive(false);
+            peperParent.transform.GetChild(playerController.pepperAmount).gameObject.SetActive(false);
         }
     }
 }

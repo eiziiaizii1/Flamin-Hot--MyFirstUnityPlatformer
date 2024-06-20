@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static event Action OnPlayerDeath;
+
     [SerializeField] private GameObject fireball;
     [SerializeField] private Transform fireBallSpawnPos;
     [SerializeField] private float fireballCooldown = 1f;
@@ -46,12 +48,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float aVolumeLevel = 0.5f;
     [SerializeField] float bVolumeLevel = 0.5f;
     [SerializeField] float cVolumeLevel = 0.5f;
+
+    private void OnEnable()
+    {
+        OnPlayerDeath += DisablePlayerMovement;
+    }
+
+    private void OnDisable()
+    {
+        OnPlayerDeath -= DisablePlayerMovement;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+
+        EnablePlayerMovement();
     }
 
     private void FixedUpdate()
@@ -192,6 +207,10 @@ public class PlayerController : MonoBehaviour
         currentHealth -= damage;
         animator.SetTrigger("isDamaged");
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        if (currentHealth <= 0f)
+        {
+            OnPlayerDeath?.Invoke();
+        }
         SoundManager.instance.PlayEffectSound(SoundManager.instance.PlayerEffect_Source, SoundManager.instance.PlayerHurt, hurtVolumeLevel);
     }
 
@@ -199,6 +218,18 @@ public class PlayerController : MonoBehaviour
     {
         currentHealth += healAmount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+    }
+
+    private void DisablePlayerMovement()
+    {
+        animator.enabled = false;
+        playerRb.bodyType = RigidbodyType2D.Static;
+    }
+
+    private void EnablePlayerMovement()
+    {
+        animator.enabled = true;
+        playerRb.bodyType = RigidbodyType2D.Dynamic;
     }
 
 
