@@ -73,20 +73,32 @@ public class PlayerController : MonoBehaviour
         {
             horizontalInput = Input.GetAxis("Horizontal");
         }
-        
+
 
         //Flip sprite based on the move direction
+        //if (horizontalInput < -0.01f)
+        //{
+        //    transform.rotation = Quaternion.Euler(0, 180, 0);
+        //    lookDirection = -1;
+        //}  
+        //else if (horizontalInput > 0.01f)
+        //{
+        //    transform.rotation = Quaternion.Euler(0, 0, 0);
+        //    lookDirection = 1;
+        //}
+
+        // Flip character based on the move direction
         if (horizontalInput < -0.01f)
         {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
+            transform.localScale = new Vector3(-1, 1, 1);
             lookDirection = -1;
-        }  
+        }
         else if (horizontalInput > 0.01f)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            transform.localScale = new Vector3(1, 1, 1);
             lookDirection = 1;
         }
-            
+
 
         //Running
         if (Input.GetKey(KeyCode.LeftShift))
@@ -163,7 +175,11 @@ public class PlayerController : MonoBehaviour
     private void ThrowFireball()
     {
         // Instantiate the fireball at the fireBallSpawnPos position with no parent
-        GameObject fireballInstance = Instantiate(fireball, fireBallSpawnPos.position, fireBallSpawnPos.rotation);
+        int yRotation = lookDirection == 1 ? 0 : 180;
+
+        Quaternion fireballRotation = Quaternion.Euler(0, yRotation, 0);
+
+        GameObject fireballInstance = Instantiate(fireball, fireBallSpawnPos.position, fireballRotation);
         fireballInstance.transform.parent = null; // Ensure it's not parented to the player or the spawn position
         FireBallThrow fireballScript = fireballInstance.GetComponent<FireBallThrow>();
 

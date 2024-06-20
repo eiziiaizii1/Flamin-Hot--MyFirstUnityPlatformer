@@ -56,7 +56,7 @@ public class SoundManager : MonoBehaviour
         if (!RunWalk_Source.isPlaying || RunWalk_Source.clip != playerWalk)
         {
             RunWalk_Source.clip = playerWalk;
-            RunWalk_Source.volume = 0.1f;
+            RunWalk_Source.volume = 0.07f;
             RunWalk_Source.loop = true;
             RunWalk_Source.Play();
         }
@@ -67,7 +67,7 @@ public class SoundManager : MonoBehaviour
         if (!RunWalk_Source.isPlaying || RunWalk_Source.clip != playerRun)
         {
             RunWalk_Source.clip = playerRun;
-            RunWalk_Source.volume = 0.1f;
+            RunWalk_Source.volume = 0.05f;
             RunWalk_Source.loop = true;
             RunWalk_Source.Play();
         }

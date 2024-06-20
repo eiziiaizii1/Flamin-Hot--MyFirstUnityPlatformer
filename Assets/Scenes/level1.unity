@@ -196,7 +196,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 11.29271
+  MinDistance: 100
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -292,7 +292,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 11.292709
+  MinDistance: 100
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -388,7 +388,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 11.247167
+  MinDistance: 100
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -484,7 +484,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 11.338253
+  MinDistance: 100
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -580,7 +580,7 @@ MonoBehaviour:
   fireballThrow: {fileID: 8300000, guid: 70fd694d6e9d7c24f856b7130f2feadb, type: 3}
   fireballImpact: {fileID: 8300000, guid: 97098034707c6234a837c4a4cc521152, type: 3}
   jump: {fileID: 8300000, guid: 6434b90b5d04ceb4599a3f473dee051d, type: 3}
-  playerHurt: {fileID: 8300000, guid: 6b3addade19fce942ab80a57f23e223b, type: 3}
+  playerHurt: {fileID: 8300000, guid: bc6ca31ef3e0138408e8d1b9c3c38515, type: 3}
   playerWalk: {fileID: 8300000, guid: d455f0dce6287df4dbde2a19e51ed960, type: 3}
   playerRun: {fileID: 8300000, guid: 3773427cc980a034d8863eb3cb7c098a, type: 3}
   snowballThrow: {fileID: 8300000, guid: c911ab74ab2c3ea4f8f41f3d335253c5, type: 3}
@@ -621,7 +621,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 32
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 100
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -1134,7 +1134,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: -1.5400001, z: -10}
+  m_LocalPosition: {x: -8, y: -1.5400002, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1215,7 +1215,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -110}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &581598788
@@ -28530,17 +28530,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
   m_LookaheadTime: 0.1
-  m_LookaheadSmoothing: 5
+  m_LookaheadSmoothing: 10
   m_LookaheadIgnoreY: 0
-  m_XDamping: 0
-  m_YDamping: 0
+  m_XDamping: 2
+  m_YDamping: 2
   m_ZDamping: 0
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.62
   m_CameraDistance: 10
-  m_DeadZoneWidth: 0.2
-  m_DeadZoneHeight: 0.3
+  m_DeadZoneWidth: 0.1
+  m_DeadZoneHeight: 0.2
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
   m_SoftZoneWidth: 0.8
@@ -29134,7 +29134,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1919939041}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: -1.5400001, z: -10}
+  m_LocalPosition: {x: -8, y: -1.5400002, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
