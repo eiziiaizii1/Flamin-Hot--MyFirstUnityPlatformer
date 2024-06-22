@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject player;
     public GameObject pauseMenu;
+    public bool isPaused = false;
     private PlayerController playerScript;
 
     private void Start()
@@ -37,12 +38,15 @@ public class GameManager : MonoBehaviour
 
     private void PauseGame()
     {
+        SoundManager.instance.StopMovementSound();  
         pauseMenu.SetActive(true);
+        isPaused = true;
         Time.timeScale = 0f;
     }
 
     public void ResumeGame()
     {
+        isPaused = false;
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
     }

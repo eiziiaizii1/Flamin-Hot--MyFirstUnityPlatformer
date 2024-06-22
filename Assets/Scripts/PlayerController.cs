@@ -9,6 +9,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public static event Action OnPlayerDeath;
+    [SerializeField] GameManager gameManager;
+
 
     // Fireball Throw variables
     [SerializeField] private GameObject fireball;
@@ -146,24 +148,27 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovementSound()
     {
-        if (isGrounded)
+        if (!gameManager.isPaused)
         {
-            if (isRunning)
+            if (isGrounded && !isDead)
             {
-                SoundManager.instance.PlayRunningSound();
-            }
-            else if (horizontalInput != 0f)
-            {
-                SoundManager.instance.PlayWalkingSound();
+                if (isRunning)
+                {
+                    SoundManager.instance.PlayRunningSound();
+                }
+                else if (horizontalInput != 0f)
+                {
+                    SoundManager.instance.PlayWalkingSound();
+                }
+                else
+                {
+                    SoundManager.instance.StopMovementSound();
+                }
             }
             else
             {
                 SoundManager.instance.StopMovementSound();
             }
-        }
-        else
-        {
-            SoundManager.instance.StopMovementSound();
         }
     }
 
