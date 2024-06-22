@@ -31,7 +31,6 @@ public class FireBallThrow : MonoBehaviour
         SoundManager.instance.PlayEffectSound(SoundManager.instance.EnvironmentEffect_Source, SoundManager.instance.FireballImpact, impactVolume);
     }
 
-
     void OnBecameInvisible()
     {
         Destroy(gameObject);

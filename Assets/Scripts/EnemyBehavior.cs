@@ -7,10 +7,11 @@ public class EnemyBehavior : MonoBehaviour
 {
     Animator animator;
 
-
     public GameObject snowball;
     public Transform playerPos;
     public Transform throwPos;
+
+    private PlayerController playerController;
 
     [SerializeField] float throwRange = 10f;
 
@@ -33,6 +34,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         playerPos = GameObject.FindGameObjectWithTag("Player").transform;
+        playerController = playerPos.GetComponent<PlayerController>();
 
         float spawnInterval = Random.Range(minTimeAmount, maxTimeAmount);
         Debug.Log(spawnInterval);
@@ -47,7 +49,7 @@ public class EnemyBehavior : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        
         faceToPlayer();
     }
 
@@ -63,7 +65,7 @@ public class EnemyBehavior : MonoBehaviour
 
         float playerDistance = Vector2.Distance(playerPos.position, transform.position);
 
-        if (playerDistance <= throwRange)
+        if (!playerController.isDead && playerDistance <= throwRange)
         {
             Vector2 throwDirection = (playerPos.position - throwPos.position).normalized;
             GameObject projectile = Instantiate(snowball, throwPos.position, Quaternion.identity);
@@ -90,14 +92,12 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            PlayerController playerScript = collision.gameObject.GetComponent<PlayerController>();
-
-            if (playerScript != null) {
+            if (playerController != null) {
                 Vector2 knockbackDirection = (collision.transform.position - transform.position).normalized;
                 Vector2 knockbackForce = knockbackDirection * knockbackPower;
-                playerScript.TakeDamage(damage);
+                playerController.TakeDamage(damage);
 
-                playerScript.ApplyKnocback(knockbackForce,knockbackDuration);
+                playerController.ApplyKnocback(knockbackForce,knockbackDuration);
                 //Debug.Log($"Knockback direction: {knockbackDirection}, Knockback force: {knockbackDirection * knockbackPower}");
             }
 

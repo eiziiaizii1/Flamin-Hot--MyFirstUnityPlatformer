@@ -10,12 +10,14 @@ public class PlayerController : MonoBehaviour
 {
     public static event Action OnPlayerDeath;
 
+    // Fireball Throw variables
     [SerializeField] private GameObject fireball;
     [SerializeField] private Transform fireBallSpawnPos;
     [SerializeField] private float fireballCooldown = 1f;
     private float currentTime = 0f;
     public bool isFired = false;
 
+    // Movement variables
     [SerializeField] private float playerSpeed = 15f;
     [SerializeField] private float walkSpeed = 15f;
     [SerializeField] private float runSpeed = 20f;
@@ -26,22 +28,25 @@ public class PlayerController : MonoBehaviour
     int lookDirection = 1;
     short jumpCount = 0;
 
+    // Pepper variables
     public int pepperAmount = 0;
     public int maxPepperAmount = 5;
     public float extraPepperDamage = 2f;
 
+    // Health variables;
     public float maxHealth= 0f;
     public float currentHealth = 0f;
+    public bool isDead = false;
 
+    // Compenents
     private Rigidbody2D playerRb;
     private Animator animator;
     private BoxCollider2D playerCollider;
 
 
     private bool isKnockbacked = false;
-    private float knockbackEndTime = 0f;
 
-
+    // Sound Effect variables
     [SerializeField] float jumpVolumeLevel = 0.5f;
     [SerializeField] float fireballVolumeLevel = 0.5f;
     [SerializeField] float hurtVolumeLevel = 0.5f;
@@ -83,25 +88,32 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         currentTime += Time.deltaTime;
-        // Horizontal Movement
-        if (!isKnockbacked)
+        if (currentHealth > 0f)
         {
-            horizontalInput = Input.GetAxis("Horizontal");
+            // Horizontal Movement
+            if (!isKnockbacked)
+            {
+                horizontalInput = Input.GetAxis("Horizontal");
+            }
+
+            FlipPlayer();
+
+            //Running
+            if (Input.GetKey(KeyCode.LeftShift))
+                isRunning = true;
+            else
+                isRunning = false;
+
+            HandleJumping();
+
+            HandleFireballLogic();
+
+            HandleMovementSound();
         }
-
-        FlipPlayer();
-
-        //Running
-        if (Input.GetKey(KeyCode.LeftShift))
-            isRunning = true;
         else
-            isRunning = false;
-
-        HandleJumping();
-
-        HandleFireballLogic();
-
-        HandleMovementSound();
+        {
+            isDead = true;
+        }
     }
 
     private void FlipPlayer()
@@ -160,7 +172,6 @@ public class PlayerController : MonoBehaviour
     {
         isKnockbacked = true;
         playerRb.AddForce(knockbackForce, ForceMode2D.Impulse);
-        knockbackEndTime = Time.time + duration;
         StartCoroutine(KnockbackCoroutine(duration));
     }
 
