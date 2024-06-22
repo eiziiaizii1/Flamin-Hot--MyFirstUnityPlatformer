@@ -37,7 +37,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         HandlePaperIcons();
-        HandleHealtHUD();
+        HandleHealthHUD();
     }
 
     private void HandlePaperIcons()
@@ -53,7 +53,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void HandleHealtHUD()
+    private void HandleHealthHUD()
     {
         healthAmount = Mathf.Clamp(playerController.currentHealth, 0, playerController.maxHealth);
         healthBar.fillAmount = healthAmount / playerController.maxHealth;
