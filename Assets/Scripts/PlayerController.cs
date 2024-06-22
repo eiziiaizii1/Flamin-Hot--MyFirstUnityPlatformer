@@ -273,6 +273,11 @@ public class PlayerController : MonoBehaviour
                 pepperAmount = maxPepperAmount;
             }
         }
+        else if (collision.gameObject.CompareTag("Border"))
+        {
+            isDead = true;
+            OnPlayerDeath?.Invoke();
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
