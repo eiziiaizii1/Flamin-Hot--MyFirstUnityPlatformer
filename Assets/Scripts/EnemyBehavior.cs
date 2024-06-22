@@ -56,7 +56,6 @@ public class EnemyBehavior : MonoBehaviour
         health -= damage;
     }
 
-
     protected void throwSnowBall()
     {
         if (playerPos == null)

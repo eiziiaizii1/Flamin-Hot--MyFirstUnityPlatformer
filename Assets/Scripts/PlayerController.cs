@@ -89,19 +89,23 @@ public class PlayerController : MonoBehaviour
             horizontalInput = Input.GetAxis("Horizontal");
         }
 
+        FlipPlayer();
 
-        //Flip sprite based on the move direction
-        //if (horizontalInput < -0.01f)
-        //{
-        //    transform.rotation = Quaternion.Euler(0, 180, 0);
-        //    lookDirection = -1;
-        //}  
-        //else if (horizontalInput > 0.01f)
-        //{
-        //    transform.rotation = Quaternion.Euler(0, 0, 0);
-        //    lookDirection = 1;
-        //}
+        //Running
+        if (Input.GetKey(KeyCode.LeftShift))
+            isRunning = true;
+        else
+            isRunning = false;
 
+        HandleJumping();
+
+        HandleFireballLogic();
+
+        HandleMovementSound();
+    }
+
+    private void FlipPlayer()
+    {
         // Flip character based on the move direction
         if (horizontalInput < -0.01f)
         {
@@ -113,19 +117,10 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(1, 1, 1);
             lookDirection = 1;
         }
+    }
 
-
-        //Running
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            isRunning = true;
-        }
-        else
-        {
-            isRunning = false;
-        }
-
-        // Jumping
+    private void HandleJumping()
+    {
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 2)
         {
             animator.SetBool("isJumping", true);
@@ -135,29 +130,17 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isGrounded", false);
             jumpCount++;
         }
+    }
 
-        // Throwing Fireballs
-        isFired = false;
-        if (Input.GetKeyDown(KeyCode.E) && currentTime >= fireballCooldown)
-        {
-            if (pepperAmount > 0)
-            {
-                isFired = true;
-                SoundManager.instance.PlayEffectSound(SoundManager.instance.PlayerEffect_Source, SoundManager.instance.FireballThrow, fireballVolumeLevel);
-                animator.SetTrigger("isFired");
-                ThrowFireball();
-                currentTime = 0f;
-                pepperAmount--;
-            }
-        }
-
+    private void HandleMovementSound()
+    {
         if (isGrounded)
         {
             if (isRunning)
             {
                 SoundManager.instance.PlayRunningSound();
             }
-            else if(horizontalInput != 0f)
+            else if (horizontalInput != 0f)
             {
                 SoundManager.instance.PlayWalkingSound();
             }
@@ -186,6 +169,24 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         isKnockbacked = false;
     }
+
+    private void HandleFireballLogic()
+    {
+        isFired = false;
+        if (Input.GetKeyDown(KeyCode.E) && currentTime >= fireballCooldown)
+        {
+            if (pepperAmount > 0)
+            {
+                isFired = true;
+                SoundManager.instance.PlayEffectSound(SoundManager.instance.PlayerEffect_Source, SoundManager.instance.FireballThrow, fireballVolumeLevel);
+                animator.SetTrigger("isFired");
+                ThrowFireball();
+                currentTime = 0f;
+                pepperAmount--;
+            }
+        }
+    }
+
 
     private void ThrowFireball()
     {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class UIManager : MonoBehaviour
     private PlayerController playerController;
 
     public GameObject gameOverMenu;
+
+    public Image healthBar;
+    public float healthAmount = 100f;
 
     private void OnEnable()
     {
@@ -32,14 +36,26 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        HandlePaperIcons();
+        HandleHealtHUD();
+    }
+
+    private void HandlePaperIcons()
+    {
         if (playerController.pepperAmount > 0 && playerController.pepperAmount <= playerController.maxPepperAmount)
         {
-            peperParent.transform.GetChild(playerController.pepperAmount-1).gameObject.SetActive(true);
+            peperParent.transform.GetChild(playerController.pepperAmount - 1).gameObject.SetActive(true);
         }
 
         if (playerController.isFired)
         {
             peperParent.transform.GetChild(playerController.pepperAmount).gameObject.SetActive(false);
         }
+    }
+
+    private void HandleHealtHUD()
+    {
+        healthAmount = Mathf.Clamp(playerController.currentHealth, 0, playerController.maxHealth);
+        healthBar.fillAmount = healthAmount / playerController.maxHealth;
     }
 }

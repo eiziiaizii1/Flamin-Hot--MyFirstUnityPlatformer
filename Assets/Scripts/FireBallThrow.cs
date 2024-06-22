@@ -21,15 +21,6 @@ public class FireBallThrow : MonoBehaviour
         fireballRb.velocity = new Vector2(speed * direction, 0f);
     }
 
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.CompareTag("Enemy"))
-    //    {
-    //        collision.gameObject.GetComponent<EnemyBehavior>().TakeDamage(damage);
-    //    }
-    //    Destroy( gameObject);
-    //}
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
