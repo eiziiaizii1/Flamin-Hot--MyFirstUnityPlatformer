@@ -9,6 +9,7 @@ TagManager:
   - Fireball
   - Enemy
   - Border
+  - EXIT
   layers:
   - Default
   - TransparentFX

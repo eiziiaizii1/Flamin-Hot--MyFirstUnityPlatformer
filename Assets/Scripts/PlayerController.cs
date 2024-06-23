@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -87,7 +88,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         currentTime += Time.deltaTime;
-        if (currentHealth > 0f)
+        if (!isDead)
         {
             // Horizontal Movement
             if (!isKnockbacked)
@@ -274,6 +275,10 @@ public class PlayerController : MonoBehaviour
         {
             isDead = true;
             OnPlayerDeath?.Invoke();
+        }
+        else if (collision.gameObject.CompareTag("EXIT"))
+        {
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 
