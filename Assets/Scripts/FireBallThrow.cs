@@ -25,7 +25,9 @@ public class FireBallThrow : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<EnemyBehavior>().TakeDamage(damage);
+            EnemyBehavior enemyScript = collision.gameObject.GetComponent<EnemyBehavior>();
+            enemyScript.TakeDamage(damage);
+            enemyScript.playDamagedAnim();
         }
         Destroy(gameObject);
         SoundManager.instance.PlayEffectSound(SoundManager.instance.EnvironmentEffect_Source, SoundManager.instance.FireballImpact, impactVolume);

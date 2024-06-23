@@ -52,9 +52,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpVolumeLevel = 0.5f;
     [SerializeField] float fireballVolumeLevel = 0.5f;
     [SerializeField] float hurtVolumeLevel = 0.5f;
-    [SerializeField] float aVolumeLevel = 0.5f;
-    [SerializeField] float bVolumeLevel = 0.5f;
-    [SerializeField] float cVolumeLevel = 0.5f;
 
     private void OnEnable()
     {

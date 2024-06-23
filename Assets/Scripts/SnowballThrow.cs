@@ -7,7 +7,7 @@ public class SnowballThrow : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float destroyTime;
     [SerializeField] float damage;
-    private Vector2 direction;
+    private Vector2 direction= new Vector2(0f,0f);
 
     [SerializeField] float snowballImpactVolumeLevel = .5f;
 

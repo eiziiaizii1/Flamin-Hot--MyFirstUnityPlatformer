@@ -19,7 +19,7 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] float maxTimeAmount = 10.0f;
     [SerializeField] float spawnDelay = 1.0f;
     float currentTime = 0f;
-
+    [SerializeField] float snowballScale = 1f;
 
     [SerializeField] float knockbackPower = 10f;
     [SerializeField] float knockbackDuration = 0.2f;
@@ -58,6 +58,11 @@ public class EnemyBehavior : MonoBehaviour
         health -= damage;
     }
 
+    public void playDamagedAnim()
+    {
+        animator.SetTrigger("isDamaged");
+    }
+
     protected void throwSnowBall()
     {
         if (playerPos == null)
@@ -69,6 +74,7 @@ public class EnemyBehavior : MonoBehaviour
         {
             Vector2 throwDirection = (playerPos.position - throwPos.position).normalized;
             GameObject projectile = Instantiate(snowball, throwPos.position, Quaternion.identity);
+            //projectile.transform.localScale *= snowballScale;
             projectile.GetComponent<SnowballThrow>().setDirection(throwDirection);
             animator.SetTrigger("isAttacked");
             SoundManager.instance.PlayEffectSound(SoundManager.instance.EnemyEffect_Source, SoundManager.instance.SnowballThrow, snowballThrowVolume);
